@@ -1,3 +1,3 @@
 # cs61a
 
-Projects, and homework for 2020fall. 
+Projects, and homework for 2020 fall. 

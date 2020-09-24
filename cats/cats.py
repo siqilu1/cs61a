@@ -21,7 +21,6 @@ def choose(paragraphs, select, k):
     >>> choose(ps, s, 1)
     >>> 'tiny'
     """
-    # BEGIN PROBLEM 1
     p_index, list = len(paragraphs), []
     for i in range(p_index):
         if select(paragraphs[i]):
@@ -30,10 +29,8 @@ def choose(paragraphs, select, k):
         return list[k]
     else:
         return ""
-    # END PROBLEM 1
 
 
-# takaway: list(range(0,3)) --> [0,1,2] not including 3!
 
 def about(topic):
     """Return a select function that returns whether a paragraph contains one
@@ -46,7 +43,7 @@ def about(topic):
     'Nice pup.'
     """
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
-    # BEGIN PROBLEM 2
+
     def helper(sentence):
         sentence = split(lower(remove_punctuation(sentence)))
         for i in range(len(topic)): 
@@ -54,7 +51,7 @@ def about(topic):
                 return True
         return False
     return helper
-    # END PROBLEM 2
+
 
 
 def accuracy(typed, reference):
@@ -77,7 +74,7 @@ def accuracy(typed, reference):
     typed_words = split(typed)
     reference_words = split(reference)
     correctness = 0
-    # BEGIN PROBLEM 3
+
     if len(typed_words) == 0:
         return 0.0
     elif len(typed_words) <= len(reference_words):
@@ -89,17 +86,17 @@ def accuracy(typed, reference):
             if typed_words[i] == reference_words[i]:
                 correctness += 1
     return correctness/len(typed_words)*100
-    # END PROBLEM 3
+
 
 
 def wpm(typed, elapsed):
     """Return the words-per-minute (WPM) of the TYPED string."""
     assert elapsed > 0, 'Elapsed time must be positive'
-    # BEGIN PROBLEM 4
+
     words = len(typed)/5
     time = elapsed/60
     return words/time
-    # END PROBLEM 4
+
 
 
 

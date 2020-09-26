@@ -143,7 +143,6 @@ def shifty_shifts(start, goal, limit):
 
     >>> shifty_shifts("one", "two", big_limit)
     >>>  3
-
     """
 
     if start == goal:

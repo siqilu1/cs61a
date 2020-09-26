@@ -110,20 +110,56 @@ def autocorrect(user_word, valid_words, diff_function, limit):
     """Returns the element of VALID_WORDS that has the smallest difference
     from USER_WORD. Instead returns USER_WORD if that difference is greater
     than LIMIT.
+
+    user_words --> str
+    valid_words --> list 
+    diff_fucntion --> func
+    limit --> int
     """
-    # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 5
+    if user_word in valid_words:
+        return user_word
+    else:
+        lowest_diff_word = min(valid_words, key=lambda x: diff_function(user_word, x, limit))
+        lowest_diff = diff_function(user_word, lowest_diff_word, limit)
+        if lowest_diff > limit:
+            return user_word
+        else:
+            return lowest_diff_word
 
 
 def shifty_shifts(start, goal, limit):
     """A diff function for autocorrect that determines how many letters
     in START need to be substituted to create GOAL, then adds the difference in
     their lengths.
+
+    >>> from cats import shifty_shifts, autocorrect
+    >>> import tests.construct_check as test
+    >>> big_limit = 10
+    >>> shifty_shifts("car", "cad", big_limit)
+    >>> 1
+
+    >>> shifty_shifts("this", "that", big_limit)
+    >>> 2
+
+    >>> shifty_shifts("one", "two", big_limit)
+    >>>  3
+
     """
-    # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
-    # END PROBLEM 6
+
+    if start == goal:
+        return 0
+    elif limit == 0:
+        return 1
+    elif len(start) == 0:
+        return len(goal)
+    elif len(goal) == 0:
+        return len(start)
+    else:
+        if start[0] != goal[0]:
+            return shifty_shifts(start[1:], goal[1:], limit - 1) + 1
+        else:
+            return shifty_shifts(start[1:], goal[1:], limit)
+
 
 
 def pawssible_patches(start, goal, limit):

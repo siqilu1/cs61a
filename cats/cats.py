@@ -162,26 +162,38 @@ def shifty_shifts(start, goal, limit):
 
 
 def pawssible_patches(start, goal, limit):
-    """A diff function that computes the edit distance from START to GOAL."""
-    assert False, 'Remove this line'
+    """A diff function that computes the edit distance from START to GOAL.
 
-    if ______________: # Fill in the condition
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    >>> big_limit = 10
+    >>> pawssible_patches("cats", "scat", big_limit)       # cats -> scats -> scat
+    2
+    >>> pawssible_patches("purng", "purring", big_limit)   # purng -> purrng -> purring
+    2
+    >>> pawssible_patches("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
+    3
 
-    elif ___________: # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    """
+
+    if start == goal: # Fill in the condition
+        return 0
+
+    elif len(start) == 0: # Feel free to remove or add additional cases
+        return len(goal)
+    
+    elif len(goal) == 0:
+        return len(start)
+
+    elif limit == 0:
+        return 1
 
     else:
-        add_diff = ... # Fill in these lines
-        remove_diff = ...
-        substitute_diff = ...
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+        if start[0] != goal[0]:
+            add_diff = pawssible_patches(start, goal[1:], limit-1) + 1
+            remove_diff = pawssible_patches(start[1:], goal, limit-1) + 1
+            substitute_diff = pawssible_patches(start[1:], goal[1:], limit-1) + 1
+            return min(add_diff, remove_diff, substitute_diff)
+        else:
+            return pawssible_patches(start[1:], goal[1:], limit)
 
 
 def final_diff(start, goal, limit):

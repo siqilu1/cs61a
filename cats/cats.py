@@ -208,14 +208,13 @@ def final_diff(start, goal, limit):
 
 def report_progress(typed, prompt, user_id, send):
     """Send a report of your id and progress so far to the multiplayer server."""
-    # BEGIN PROBLEM 8
+
     num_all_correct, i = 0, 0
     while i < len(typed) and typed[i] == prompt[i]:
         num_all_correct, i = num_all_correct+1, i+1
     progress_percent = num_all_correct / len(prompt)
     send({'id': user_id, 'progress': progress_percent})
     return progress_percent
-    # END PROBLEM 8
 
 
 def fastest_words_report(times_per_player, words):
@@ -239,9 +238,9 @@ def time_per_word(times_per_player, words):
                           the player finished typing each word.
         words: a list of words, in the order they are typed.
     """
-    # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 9
+
+    times = [ [ times_per_player[p][i+1] - times_per_player[p][i] for i in range(len(words)) ] for p in range(len(times_per_player))]
+    return game(words, times)
 
 
 def fastest_words(game):
@@ -254,9 +253,16 @@ def fastest_words(game):
     """
     player_indices = range(len(all_times(game)))  # contains an *index* for each player
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
-    # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 10
+
+    result = [[] for player in player_indices]    # list of lists for each player
+
+    for word in word_indices:   # loop through every single word
+        work_at = word_at(game, word)
+        list_time = [time_item[word] for time_item in all_times(game)] # a list of lists; within each sublist, contains all time_per_word for each player
+        smallest_timelapse = min(list_time)
+        smallest_index = list_time.index(smallest_timelapse)
+        result[smallest_index].append(work_at)
+    return result
 
 
 def game(words, times):
@@ -295,7 +301,7 @@ def game_string(game):
     """A helper function that takes in a game object and returns a string representation of it"""
     return "game(%s, %s)" % (game[0], game[1])
 
-enable_multiplayer = False  # Change to True when you're ready to race.
+enable_multiplayer = True  # Change to True when you're ready to race.
 
 ##########################
 # Command Line Interface #

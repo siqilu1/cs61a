@@ -44,11 +44,13 @@ def planet(size):
     """Construct a planet of some size."""
     assert size > 0
     "*** YOUR CODE HERE ***"
+    return ['planet', size]
 
 def size(w):
     """Select the size of a planet."""
     assert is_planet(w), 'must call size on a planet'
     "*** YOUR CODE HERE ***"
+    return w[1]
 
 def is_planet(w):
     """Whether w is a planet."""
@@ -105,6 +107,17 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    left_balanced = True
+    right_balanced = True
+    left_torque = total_weight(end(left(m))) * length(left(m))
+    right_torque = total_weight(end(right(m))) * length(right(m))
+    if left_torque != right_torque:
+        return False
+    if is_mobile(end(left(m))):
+        left_balanced = balanced(end(left(m)))
+    if is_mobile(end(right(m))):
+        right_balanced = balanced(end(right(m)))
+    return left_balanced and right_balanced
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
@@ -136,7 +149,10 @@ def totals_tree(m):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if is_mobile(m):
+        return tree(total_weight(m), [totals_tree(end(left(m))), totals_tree(end(right(m)))])
+    else:
+        return tree(m[1])
 
 def replace_leaf(t, find_value, replace_value):
     """Returns a new tree where every leaf value equal to find_value has
@@ -168,7 +184,11 @@ def replace_leaf(t, find_value, replace_value):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if is_leaf(t):
+        if label(t) == find_value:
+            return tree(replace_value)
+    new_branches = [replace_leaf(b, find_value, replace_value) for b in branches(t)]
+    return tree(label(t), new_branches)
 
 def preorder(t):
     """Return a list of the entries in this tree in the order that they
@@ -181,7 +201,14 @@ def preorder(t):
     [2, 4, 6]
     """
     "*** YOUR CODE HERE ***"
-
+    result = []
+    def helper(t):
+        if is_leaf(t):
+            return result
+        else:
+            result.append(label(t))
+            return helper(branches(t))
+    return helper(t)
 
 def has_path(t, word):
     """Return whether there is a path in a tree where the entries along the path

@@ -62,7 +62,6 @@ def make_withdraw(balance, password):
     >>> type(w(10, 'l33t')) == str
     True
     """
-    "*** YOUR CODE HERE ***"
     wrong_temp = 0
     temp_history = []
     def withdraw(amount, input_pw):
@@ -103,23 +102,27 @@ def repeated(t, k):
     2
     """
     assert k > 1
-    "*** YOUR CODE HERE ***"
-    count = 0
-    while count < k:
-        finder_1 = next(t)
+
+    count = 1
+    finder_1 = next(t)
+    while t:
         finder_2 = next(t)
         if finder_1 == finder_2:
-            count += 2
-            finder_2 = next(t)
+            count += 1
+            if count == k:
+                return finder_1        
         else:
-            finder = finder_next
-        if count 
+            finder_1 = finder_2
+            count = 1
+
     
 
 def permutations(seq):
     """Generates all permutations of the given sequence. Each permutation is a
     list of the elements in SEQ in a different order. The permutations may be
     yielded in any order.
+
+    seq: list
 
     >>> perms = permutations([100])
     >>> type(perms)
@@ -138,7 +141,16 @@ def permutations(seq):
     >>> sorted(permutations("ab"))
     [['a', 'b'], ['b', 'a']]
     """
-    "*** YOUR CODE HERE ***"
+    seq_iter = iter(seq)
+    # base case:
+    if len(seq) == 1:
+        yield seq
+    # recursive case: 
+    else:
+        for x in list(seq_iter):
+            yield x
+            yield from permutations(list(seq_iter))
+
 
 
 def make_joint(withdraw, old_pass, new_pass):

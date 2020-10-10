@@ -19,7 +19,18 @@ def make_bank(balance):
     120
     """
     def bank(message, amount):
-        "*** YOUR CODE HERE ***"
+        nonlocal balance
+        if message == 'withdraw':
+            if balance < amount:
+                return 'Insufficient funds'
+            else:
+                balance -= amount
+                return balance
+        elif message == 'deposit':
+            balance += amount
+            return balance
+        else:
+            return 'Invalid message'
     return bank
 
 
@@ -52,6 +63,23 @@ def make_withdraw(balance, password):
     True
     """
     "*** YOUR CODE HERE ***"
+    wrong_temp = 0
+    temp_history = []
+    def withdraw(amount, input_pw):
+        nonlocal balance, wrong_temp, temp_history
+        if wrong_temp >= 3:
+            return "Frozen account. Attempts: " + str(temp_history)
+        if password == input_pw:
+            if balance >= amount:
+                balance -= amount
+                return balance
+            else:
+                return 'Insufficient funds'
+        elif password != input_pw:
+            wrong_temp += 1
+            temp_history.append(input_pw)
+            return 'Incorrect password'
+    return withdraw
 
 
 def repeated(t, k):
@@ -76,7 +104,17 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
-
+    count = 0
+    while count < k:
+        finder_1 = next(t)
+        finder_2 = next(t)
+        if finder_1 == finder_2:
+            count += 2
+            finder_2 = next(t)
+        else:
+            finder = finder_next
+        if count 
+    
 
 def permutations(seq):
     """Generates all permutations of the given sequence. Each permutation is a

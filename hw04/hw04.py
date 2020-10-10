@@ -147,9 +147,10 @@ def permutations(seq):
         yield seq
     # recursive case: 
     else:
-        for x in list(seq_iter):
-            yield x
-            yield from permutations(list(seq_iter))
+        for _ in range(len(seq)):
+            for x in list(seq_iter):
+                yield x
+                yield from permutations(list(seq_iter))
 
 
 

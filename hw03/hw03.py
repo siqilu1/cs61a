@@ -201,14 +201,20 @@ def preorder(t):
     [2, 4, 6]
     """
     "*** YOUR CODE HERE ***"
-    result = []
-    def helper(t):
-        if is_leaf(t):
-            return result
-        else:
-            result.append(label(t))
-            return helper(branches(t))
-    return helper(t)
+    # result = []
+    # def helper(t):
+    #     if is_leaf(t):
+    #         return result
+    #     else:
+    #         result.append(label(t))
+    #         return helper(branches(t))
+    # return helper(t)
+    if branches(t) == []:
+        return [label(t)]
+    flattened_branches = []
+    for b in branches(t):
+        flattened_branches += preorder(b)
+    return [label(t)] + flattened_branches
 
 def has_path(t, word):
     """Return whether there is a path in a tree where the entries along the path
@@ -239,7 +245,14 @@ def has_path(t, word):
     False
     """
     assert len(word) > 0, 'no path for empty word.'
-    "*** YOUR CODE HERE ***"
+    if label(t) != word[0]:
+        return False
+    elif len(word) == 1:
+        return True
+    for b in branches(t):
+        if has_path(b, word[1:]):
+            return True
+    return False
 
 
 def interval(a, b):

@@ -152,6 +152,18 @@ def permutations(seq):
                 yield x
                 yield from permutations(list(seq_iter))
 
+    # # seq_iter = iter(seq)
+    # # base case:
+    # if len(seq) == 1:
+    #     yield seq
+    # # recursive case: 
+    # else:
+    #     for x in seq:
+    #         # for x in list(seq_iter):
+    #         yield x
+    #         # seq.remove(x)
+    #         # yield seq
+    #         # yield from permutations(seq)
 
 
 def make_joint(withdraw, old_pass, new_pass):

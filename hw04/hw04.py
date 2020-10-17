@@ -160,20 +160,6 @@ def permutations(seq):
             for i in range(len(seq)):
                 yield perm[:i] + [seq[0]] + perm[i:]
 
-    # # seq_iter = iter(seq)
-    # # base case:
-    # if len(seq) == 1:
-    #     yield seq
-    # # recursive case: 
-    # else:
-    #     for x in seq:
-    #         # for x in list(seq_iter):
-    #         yield x
-    #         # seq.remove(x)
-    #         # yield seq
-    #         # yield from permutations(seq)
-
-
 def make_joint(withdraw, old_pass, new_pass):
     """Return a password-protected withdraw function that has joint access to
     the balance of withdraw.

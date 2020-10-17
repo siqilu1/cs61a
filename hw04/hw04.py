@@ -62,12 +62,12 @@ def make_withdraw(balance, password):
     >>> type(w(10, 'l33t')) == str
     True
     """
-    wrong_temp = 0
-    temp_history = []
+    wrong_attemps = 0
+    attemps_history = []
     def withdraw(amount, input_pw):
-        nonlocal balance, wrong_temp, temp_history
-        if wrong_temp >= 3:
-            return "Frozen account. Attempts: " + str(temp_history)
+        nonlocal balance, wrong_attemps, attemps_history
+        if wrong_attemps >= 3:
+            return "Frozen account. Attempts: " + str(attemps_history)
         if password == input_pw:
             if balance >= amount:
                 balance -= amount
@@ -75,8 +75,8 @@ def make_withdraw(balance, password):
             else:
                 return 'Insufficient funds'
         elif password != input_pw:
-            wrong_temp += 1
-            temp_history.append(input_pw)
+            wrong_attemps += 1
+            attemps_history.append(input_pw)
             return 'Incorrect password'
     return withdraw
 
@@ -141,16 +141,24 @@ def permutations(seq):
     >>> sorted(permutations("ab"))
     [['a', 'b'], ['b', 'a']]
     """
-    seq_iter = iter(seq)
-    # base case:
-    if len(seq) == 1:
-        yield seq
-    # recursive case: 
+    # seq_iter = iter(seq)
+    # # base case:
+    # if len(seq) == 1:
+    #     yield seq
+    # # recursive case: 
+    # else:
+    #     for _ in range(len(seq)):
+    #         for x in list(seq_iter):
+    #             yield x
+    #             yield from permutations(list(seq_iter))
+
+    # solution:
+    if not seq:
+        yield []
     else:
-        for _ in range(len(seq)):
-            for x in list(seq_iter):
-                yield x
-                yield from permutations(list(seq_iter))
+        for perm in permutations(seq[1:]):
+            for i in range(len(seq)):
+                yield perm[:i] + [seq[0]] + perm[i:]
 
     # # seq_iter = iter(seq)
     # # base case:

@@ -151,6 +151,11 @@ def store_digits(n):
     >>> print("Do not use str or reversed!") if any([r in cleaned for r in ["str", "reversed"]]) else None
     """
     "*** YOUR CODE HERE ***"
+    if n < 10:
+        return Link(n)
+    else:
+        link = Link(n%10)
+        return Link(store_digits(n//10), link)
 
 
 def is_bst(t):

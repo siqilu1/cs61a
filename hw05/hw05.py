@@ -35,7 +35,45 @@ class VendingMachine:
     >>> w.vend()
     'Here is your soda.'
     """
-    "*** YOUR CODE HERE ***"
+    # should inventory be class attribute??
+    # soda_inventory = 0
+    # candy_inventory = 0
+
+    
+    def __init__(self, product, price):
+        self.product = product
+        self.price = price
+        self.inventory = 0
+        self.funds = 0
+        self.change = 0
+    
+    def vend(self):
+        if self.inventory == 0:
+            return 'Inventory empty. Restocking required.'
+        elif self.funds < self.price:
+            return 'You must add ${} more funds.'.format(self.price - self.funds)
+        elif self.funds > self.price:
+            self.inventory -= 1
+            self.change = self.funds - self.price
+            self.funds = 0
+            return 'Here is your candy and ${} change.'.format(self.change)
+        elif self.funds == self.price:
+            self.inventory -= 1
+            return 'Here is your {}.'.format(self.product)
+
+
+    def add_funds(self, funds):
+        if self.inventory == 0:
+            return 'Inventory empty. Restocking required. Here is your ${}.'.format(funds)
+        self.funds += funds
+        return 'Current balance: ${}'.format(self.funds)
+
+    def restock(self, stock):
+        assert stock > 0
+        self.inventory += stock
+        return 'Current {0} stock: {1}'.format(self.product, self.inventory)
+    
+
 
 
 class Mint:
@@ -71,19 +109,24 @@ class Mint:
 
     def __init__(self):
         self.update()
+        # self.year = Mint.current_year
 
     def create(self, kind):
         "*** YOUR CODE HERE ***"
+        kind.year = self.year
+
 
     def update(self):
         "*** YOUR CODE HERE ***"
+        self.year = Mint.current_year
 
 class Coin:
     def __init__(self, year):
         self.year = year
 
-    def worth(self):
+    def worth(self): 
         "*** YOUR CODE HERE ***"
+        return kind.cents + max(Mint.current_year - self.year - 50, 0)
 
 class Nickel(Coin):
     cents = 5

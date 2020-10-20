@@ -203,22 +203,16 @@ class ShortThrower(ThrowerAnt):
 
     name = 'Short'
     food_cost = 2
-    # OVERRIDE CLASS ATTRIBUTES HERE
-    # BEGIN Problem 4
     implemented = True   # Change to True to view in the GUI
     max_range = 3
-    # END Problem 4
 
 class LongThrower(ThrowerAnt):
     """A ThrowerAnt that only throws leaves at Bees at least 5 places away."""
 
     name = 'Long'
     food_cost = 2
-    # OVERRIDE CLASS ATTRIBUTES HERE
-    # BEGIN Problem 4
     implemented = True   # Change to True to view in the GUI
     min_range = 5
-    # END Problem 4
 
 class FireAnt(Ant):
     """FireAnt cooks any Bee in its Place when it expires."""

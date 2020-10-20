@@ -168,29 +168,6 @@ class ThrowerAnt(Ant):
 
         This method returns None if there is no such Bee (or none in range).
         """
-        # BEGIN Problem 3 and 4
-        # return rANTdom_else_none(self.place.bees) # REPLACE THIS LINE
-        # if self.name == 'Short': 
-        #     self.max_range = 3
-        # if self.name == 'Long': 
-        #     self.min_range = 5
-        # if self.name == 'Thrower':
-        #     self.
-
-        # cur_place = self.place
-        # distance = 0
-        # while cur_place != beehive:
-        #     if self.name == 'Short' and distance <= self.max_range and cur_place.bees:
-        #         return rANTdom_else_none(cur_place.bees)
-        #     elif self.name == 'Long' and distance >= self.min_range and cur_place.bees:
-        #         return rANTdom_else_none(cur_place.bees)
-        #     elif self.name == 'Thrower' and cur_place.bees:
-        #         return rANTdom_else_none(cur_place.bees)
-        #     cur_place = cur_place.entrance
-        #     distance += 1
-        # return None
-
-
         cur_place = self.place
         distance = 0
         
@@ -200,7 +177,7 @@ class ThrowerAnt(Ant):
             cur_place = cur_place.entrance
             distance += 1
         return None
-        # END Problem 3 and 4
+
 
     def throw_at(self, target):
         """Throw a leaf at the TARGET Bee, reducing its armor."""

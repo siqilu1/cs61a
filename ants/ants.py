@@ -24,7 +24,8 @@ class Place:
         self.entrance = None  # A Place
         # Phase 1: Add an entrance to the exit
         # BEGIN Problem 2
-        "*** YOUR CODE HERE ***"
+        if exit is not None:
+            exit.entrance = self
         # END Problem 2
 
     def add_insect(self, insect):
@@ -172,6 +173,7 @@ class ThrowerAnt(Ant):
         """
         # BEGIN Problem 3 and 4
         return rANTdom_else_none(self.place.bees) # REPLACE THIS LINE
+        
         # END Problem 3 and 4
 
     def throw_at(self, target):

@@ -169,7 +169,13 @@ class ThrowerAnt(Ant):
         """
         # BEGIN Problem 3 and 4
         # return rANTdom_else_none(self.place.bees) # REPLACE THIS LINE
-
+        cur_place = self.place
+        while not cur_place.bees:
+            cur_place = cur_place.entrance
+        if cur_place == beehive:
+            return None
+        else:
+            return rANTdom_else_none(cur_place.bees)
         # END Problem 3 and 4
 
     def throw_at(self, target):

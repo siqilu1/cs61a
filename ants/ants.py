@@ -160,6 +160,7 @@ class ThrowerAnt(Ant):
     damage = 1
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
     food_cost = 3
+    min_range, max_range = 0, float('inf')
 
     def nearest_bee(self, beehive):
         """Return the nearest Bee in a Place that is not the HIVE (beehive), connected to
@@ -169,13 +170,36 @@ class ThrowerAnt(Ant):
         """
         # BEGIN Problem 3 and 4
         # return rANTdom_else_none(self.place.bees) # REPLACE THIS LINE
+        # if self.name == 'Short': 
+        #     self.max_range = 3
+        # if self.name == 'Long': 
+        #     self.min_range = 5
+        # if self.name == 'Thrower':
+        #     self.
+
+        # cur_place = self.place
+        # distance = 0
+        # while cur_place != beehive:
+        #     if self.name == 'Short' and distance <= self.max_range and cur_place.bees:
+        #         return rANTdom_else_none(cur_place.bees)
+        #     elif self.name == 'Long' and distance >= self.min_range and cur_place.bees:
+        #         return rANTdom_else_none(cur_place.bees)
+        #     elif self.name == 'Thrower' and cur_place.bees:
+        #         return rANTdom_else_none(cur_place.bees)
+        #     cur_place = cur_place.entrance
+        #     distance += 1
+        # return None
+
+
         cur_place = self.place
-        while not cur_place.bees:
+        distance = 0
+        
+        while cur_place != beehive:
+            if self.min_range <= distance <= self.max_range and cur_place.bees:
+                return rANTdom_else_none(cur_place.bees)
             cur_place = cur_place.entrance
-        if cur_place == beehive:
-            return None
-        else:
-            return rANTdom_else_none(cur_place.bees)
+            distance += 1
+        return None
         # END Problem 3 and 4
 
     def throw_at(self, target):
@@ -204,7 +228,8 @@ class ShortThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    max_range = 3
     # END Problem 4
 
 class LongThrower(ThrowerAnt):
@@ -214,7 +239,8 @@ class LongThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    min_range = 5
     # END Problem 4
 
 class FireAnt(Ant):

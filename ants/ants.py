@@ -23,10 +23,8 @@ class Place:
         self.ant = None       # An Ant
         self.entrance = None  # A Place
         # Phase 1: Add an entrance to the exit
-        # BEGIN Problem 2
         if exit is not None:
             exit.entrance = self
-        # END Problem 2
 
     def add_insect(self, insect):
         """
@@ -151,9 +149,7 @@ class HarvesterAnt(Ant):
 
         gamestate -- The GameState, used to access game state information.
         """
-        # BEGIN Problem 1
         gamestate.food += 1
-        # END Problem 1
 
 
 class ThrowerAnt(Ant):
@@ -172,8 +168,8 @@ class ThrowerAnt(Ant):
         This method returns None if there is no such Bee (or none in range).
         """
         # BEGIN Problem 3 and 4
-        return rANTdom_else_none(self.place.bees) # REPLACE THIS LINE
-        
+        # return rANTdom_else_none(self.place.bees) # REPLACE THIS LINE
+
         # END Problem 3 and 4
 
     def throw_at(self, target):

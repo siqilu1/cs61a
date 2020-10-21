@@ -269,9 +269,17 @@ class HungryAnt(Ant):
 
 
 
-# BEGIN Problem 7
-# The WallAnt class
-# END Problem 7
+class WallAnt(Ant):
+    """A WallAnt is an ant that does nothing each turn. 
+        It is useful because it has a large armor value.
+    """
+    name = 'Wall'
+    implemented = True
+    food_cost = 4
+
+    def __init__(self,armor=4):
+        Ant.__init__(self,armor)
+
 
 
 class Water(Place):

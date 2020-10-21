@@ -220,10 +220,7 @@ class FireAnt(Ant):
     name = 'Fire'
     damage = 3
     food_cost = 5
-    # OVERRIDE CLASS ATTRIBUTES HERE
-    # BEGIN Problem 5
     implemented = True   # Change to True to view in the GUI
-    # END Problem 5
 
     def __init__(self, armor=3):
         """Create an Ant with an ARMOR quantity."""

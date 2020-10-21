@@ -222,7 +222,7 @@ class FireAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 5
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem 5
 
     def __init__(self, armor=3):
@@ -236,9 +236,15 @@ class FireAnt(Ant):
         Make sure to damage each bee in the current place, and apply the bonus
         if the fire ant dies.
         """
-        # BEGIN Problem 5
-        "*** YOUR CODE HERE ***"
-        # END Problem 5
+        curr_place = self.place
+        bees = curr_place.bees[:]
+        Ant.reduce_armor(self,amount=amount)
+        if self.armor > 0:
+            for bee in bees:
+                Insect.reduce_armor(bee, amount = amount)
+        elif self.armor <= 0:
+            for bee in bees:
+                Insect.reduce_armor(bee, amount = self.damage + amount)
 
 class HungryAnt(Ant):
     """HungryAnt will take three turns to digest a Bee in its place.

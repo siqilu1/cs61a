@@ -241,10 +241,10 @@ class FireAnt(Ant):
         Ant.reduce_armor(self,amount=amount)
         if self.armor > 0:
             for bee in bees:
-                Insect.reduce_armor(bee, amount = amount)
+                Insect.reduce_armor(bee, amount=amount)
         elif self.armor <= 0:
             for bee in bees:
-                Insect.reduce_armor(bee, amount = self.damage + amount)
+                Insect.reduce_armor(bee, amount=self.damage+amount)
 
 class HungryAnt(Ant):
     """HungryAnt will take three turns to digest a Bee in its place.

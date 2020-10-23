@@ -103,11 +103,12 @@ class Ant(Insect):
     implemented = False  # Only implemented Ant classes should be instantiated
     food_cost = 0
     # ADD CLASS ATTRIBUTES HERE
-    damaged = False
+    # damaged = False
 
     def __init__(self, armor=1):
         """Create an Ant with an ARMOR quantity."""
         Insect.__init__(self, armor)
+        self.damaged = False
 
     def can_contain(self, other):
         return False
@@ -329,12 +330,11 @@ class QueenAnt(ScubaThrower):  # You should change this line
         """
         if self.real_queen == 1:
             ScubaThrower.action(self, gamestate)
-            # if self.place.exit is not None:
             while self.place.exit is not None:
                 if self.place.exit.ant is not None:
                     if self.place.exit.ant.damaged == False:
                         self.place.exit.ant.damage *= 2
-                        self.place.ant.damaged = True
+                        self.place.exit.ant.damaged = True
                 self.place.exit = self.place.exit.exit
         elif self.real_queen == 0:
             self.reduce_armor(self.armor)

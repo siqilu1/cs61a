@@ -49,6 +49,7 @@ class Insect:
 
     damage = 0
     # ADD CLASS ATTRIBUTES HERE
+    is_watersafe = False
 
     def __init__(self, armor, place=None):
         """Create an Insect with an ARMOR amount and a starting PLACE."""
@@ -278,7 +279,7 @@ class WallAnt(Ant):
     food_cost = 4
 
     def __init__(self,armor=4):
-        Ant.__init__(self,armor)
+        Ant.__init__(self, armor)
 
 
 
@@ -288,13 +289,17 @@ class Water(Place):
     def add_insect(self, insect):
         """Add an Insect to this place. If the insect is not watersafe, reduce
         its armor to 0."""
-        # BEGIN Problem 8
-        "*** YOUR CODE HERE ***"
-        # END Problem 8
+        Place.add_insect(self, insect)
+        if not insect.is_watersafe:
+            insect.reduce_armor(amount = insect.armor)
 
-# BEGIN Problem 9
-# The ScubaThrower class
-# END Problem 9
+class ScubaThrower(ThrowerAnt):
+    """ A ScubaThrower inherited from ThrowerAnt and is water-safe."""
+    name = 'Scuba'
+    implement = True
+    food_cost = 6
+    is_watersafe = True
+    
 
 # BEGIN Problem EC
 class QueenAnt(Ant):  # You should change this line
@@ -348,6 +353,7 @@ class Bee(Insect):
     name = 'Bee'
     damage = 1
     # OVERRIDE CLASS ATTRIBUTES HERE
+    is_watersafe = True
 
 
     def sting(self, ant):

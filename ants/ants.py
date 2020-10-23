@@ -103,7 +103,6 @@ class Ant(Insect):
     implemented = False  # Only implemented Ant classes should be instantiated
     food_cost = 0
     # ADD CLASS ATTRIBUTES HERE
-    # damaged = False
 
     def __init__(self, armor=1):
         """Create an Ant with an ARMOR quantity."""
@@ -316,6 +315,7 @@ class QueenAnt(ScubaThrower):  # You should change this line
     def __init__(self, armor=1):
         self.armor = armor
         ScubaThrower.__init__(self, armor)
+        self.doubled = []
         if QueenAnt.real_queen == 1:
             self.real_queen = 1
             QueenAnt.real_queen = 0
@@ -330,12 +330,13 @@ class QueenAnt(ScubaThrower):  # You should change this line
         """
         if self.real_queen == 1:
             ScubaThrower.action(self, gamestate)
-            while self.place.exit is not None:
-                if self.place.exit.ant is not None:
-                    if self.place.exit.ant.damaged == False:
-                        self.place.exit.ant.damage *= 2
-                        self.place.exit.ant.damaged = True
-                self.place.exit = self.place.exit.exit
+            cur_place = self.place
+            while cur_place.exit:
+                ant = cur_place.exit.ant
+                if cur_place.exit.ant and ant not in self.doubled:
+                    ant.damage *= 2
+                    self.doubled.append(ant)
+                cur_place = cur_place.exit
         elif self.real_queen == 0:
             self.reduce_armor(self.armor)
 
@@ -348,6 +349,7 @@ class QueenAnt(ScubaThrower):  # You should change this line
             bees_win()
         elif self.armor <= 0 and self.real_queen == 0:
             self.place.remove_insect(self)
+            self.death_callback()
             
     def remove_from(self, place):
         if self.real_queen == 0:

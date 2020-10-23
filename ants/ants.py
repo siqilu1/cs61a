@@ -103,6 +103,7 @@ class Ant(Insect):
     implemented = False  # Only implemented Ant classes should be instantiated
     food_cost = 0
     # ADD CLASS ATTRIBUTES HERE
+    damaged = False
 
     def __init__(self, armor=1):
         """Create an Ant with an ARMOR quantity."""
@@ -301,22 +302,27 @@ class ScubaThrower(ThrowerAnt):
     is_watersafe = True
     
 
-# BEGIN Problem EC
-class QueenAnt(Ant):  # You should change this line
-# END Problem EC
+class QueenAnt(ScubaThrower):  # You should change this line
     """The Queen of the colony. The game is over if a bee enters her place."""
-
     name = 'Queen'
     food_cost = 7
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem EC
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    real_queen = 1
     # END Problem EC
 
     def __init__(self, armor=1):
         # BEGIN Problem EC
         "*** YOUR CODE HERE ***"
         # END Problem EC
+        self.armor = armor
+        ScubaThrower.__init__(self, armor)
+        if QueenAnt.real_queen == 1:
+            self.real_queen = 1
+            QueenAnt.real_queen = 0
+        else:
+            self.real_queen = 0
 
     def action(self, gamestate):
         """A queen ant throws a leaf, but also doubles the damage of ants
@@ -326,6 +332,16 @@ class QueenAnt(Ant):  # You should change this line
         """
         # BEGIN Problem EC
         "*** YOUR CODE HERE ***"
+        if self.real_queen == 1:
+            ScubaThrower.action(self, gamestate)
+            while self.place.exit is not None:
+                if self.place.exit.ant is not None:
+                    if self.place.ant.damaged == False:
+                        self.place.exit.ant.damage *= 2
+                        self.place.ant.damaged = True
+                self.place.exit = self.place.exit.exit
+        elif self.real_queen == 0:
+            self.reduce_armor(self.armor)
         # END Problem EC
 
     def reduce_armor(self, amount):
@@ -334,6 +350,15 @@ class QueenAnt(Ant):  # You should change this line
         """
         # BEGIN Problem EC
         "*** YOUR CODE HERE ***"
+        self.armor -= amount
+        if self.armor <= 0 and self.real_queen == 1:
+            bees_win()
+        elif self.armor <= 0 and self.real_queen == 0:
+            self.place.remove_insect(self)
+            
+    def remove_from(self, place):
+        if self.real_queen == 0:
+            Ant.remove_from(self, place)
         # END Problem EC
 
 

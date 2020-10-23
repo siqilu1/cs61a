@@ -313,9 +313,6 @@ class QueenAnt(ScubaThrower):  # You should change this line
     # END Problem EC
 
     def __init__(self, armor=1):
-        # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
-        # END Problem EC
         self.armor = armor
         ScubaThrower.__init__(self, armor)
         if QueenAnt.real_queen == 1:
@@ -330,26 +327,22 @@ class QueenAnt(ScubaThrower):  # You should change this line
 
         Impostor queens do only one thing: reduce their own armor to 0.
         """
-        # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
         if self.real_queen == 1:
             ScubaThrower.action(self, gamestate)
+            # if self.place.exit is not None:
             while self.place.exit is not None:
                 if self.place.exit.ant is not None:
-                    if self.place.ant.damaged == False:
+                    if self.place.exit.ant.damaged == False:
                         self.place.exit.ant.damage *= 2
                         self.place.ant.damaged = True
                 self.place.exit = self.place.exit.exit
         elif self.real_queen == 0:
             self.reduce_armor(self.armor)
-        # END Problem EC
 
     def reduce_armor(self, amount):
         """Reduce armor by AMOUNT, and if the True QueenAnt has no armor
         remaining, signal the end of the game.
         """
-        # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
         self.armor -= amount
         if self.armor <= 0 and self.real_queen == 1:
             bees_win()
@@ -359,7 +352,6 @@ class QueenAnt(ScubaThrower):  # You should change this line
     def remove_from(self, place):
         if self.real_queen == 0:
             Ant.remove_from(self, place)
-        # END Problem EC
 
 
 
